@@ -19,7 +19,17 @@ setup_db(APP)
 @APP.route('/')
 def index():
   return 'hello world'
-  
 
+@APP.route('/movies')
+def get_movies():
+  movies = Movies.query.order_by(Movies.id).all()
+
+  movies_formatted = [movie.format() for movie in movies]
+  return jsonify({
+    'success': True,
+    'movies': movies_formatted
+  })
+
+ 
 if __name__ == '__main__':
     APP.run(host='127.0.0.1', port=8080, debug=True)
