@@ -29,7 +29,16 @@ def get_movies():
     'success': True,
     'movies': movies_formatted
   })
+  
+@APP.route('/actors')
+def get_actors():
+  actors = Actors.query.order_by(Actors.id).all()
 
+  actors_formatted = [actor.format() for actor in actors]
+  return jsonify({
+    'success': True,
+    'actors': actors_formatted
+  })
  
 if __name__ == '__main__':
     APP.run(host='127.0.0.1', port=8080, debug=True)
