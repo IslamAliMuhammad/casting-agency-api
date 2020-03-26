@@ -40,6 +40,20 @@ def get_actors():
     'actors': actors_formatted
   })
  
+@APP.route('/movies', methods=['POST'])
+def create_movie():
+
+  body = request.get_json()
+  new_title = body.get('title', None)
+  new_release_date = body.get('release_date', None)
+  
+  movie = Movies(title=new_title, release_date=new_release_date)
+  movie.insert()
+
+  return jsonify({
+    'success': True
+  })
+
 
 
 if __name__ == '__main__':
