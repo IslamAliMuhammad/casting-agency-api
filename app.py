@@ -29,7 +29,7 @@ def get_movies():
     'success': True,
     'movies': movies_formatted
   })
-  
+
 @APP.route('/actors')
 def get_actors():
   actors = Actors.query.order_by(Actors.id).all()
@@ -40,5 +40,7 @@ def get_actors():
     'actors': actors_formatted
   })
  
+
+
 if __name__ == '__main__':
     APP.run(host='127.0.0.1', port=8080, debug=True)
