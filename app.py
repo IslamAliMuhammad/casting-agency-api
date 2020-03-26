@@ -54,6 +54,39 @@ def create_movie():
     'success': True
   })
 
+<<<<<<< HEAD
+=======
+@APP.route('/movies/<int:movie_id>', methods=['PATCH'])
+def update_movie_partially(movie_id):
+  movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
+
+  body = request.get_json()
+  
+  title_updated = body.get('title', None)
+  release_date_updated = body.get('release_date', None)
+
+  if title_updated:
+    movie.title = title_updated
+  
+  if release_date_updated:
+    movie.release_date = release_date_updated
+
+  movie.update()
+
+  return jsonify({
+    'success': True
+  })
+
+@APP.route('/movies/<int:movie_id>', methods=['DELETE'])
+def remove_movie(movie_id):
+  movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
+
+  movie.delete()
+
+  return jsonify({
+    'success': True
+  })
+>>>>>>> 67d1094... feat: Delete movie through DELETE /movies/<int:movie_id>
 
 
 if __name__ == '__main__':
