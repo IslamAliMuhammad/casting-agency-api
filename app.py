@@ -58,8 +58,6 @@ def create_movie():
     'success': True
   })
 
-<<<<<<< HEAD
-=======
 @APP.route('/movies/<int:movie_id>', methods=['PATCH'])
 def update_movie_partially(movie_id):
   movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
@@ -90,7 +88,6 @@ def remove_movie(movie_id):
   return jsonify({
     'success': True
   })
->>>>>>> 67d1094... feat: Delete movie through DELETE /movies/<int:movie_id>
 
 @APP.errorhandler(400)
 def bad_request(error):
