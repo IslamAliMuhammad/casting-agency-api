@@ -105,6 +105,33 @@ def update_movie_partially(payload, movie_id):
     'success': True
   })
 
+@APP.route('/actors/<int:actor_id>', methods=['PATCH'])
+@requires_auth('patch:actors')
+def update_actor_partially(payload, actor_id):
+  actor = Actors.query.filter(Actors.id == actor_id).one_or_none()
+
+  body = request.get_json()
+  
+  name_updated = body.get('name', None)
+  age_updated = body.get('age', None)
+  gender_updated = body.get('gender', None)
+
+  if name_updated:
+    actor.name = name_updated
+  
+  if age_updated:
+    actor.age = age_updated
+
+  if gender_updated:
+    actor.gender = gender_updated
+    
+
+  actor.update()
+
+  return jsonify({
+    'success': True
+  })
+
 @APP.route('/movies/<int:movie_id>', methods=['DELETE'])
 @requires_auth('delete:movies')
 def remove_movie(payload, movie_id):
