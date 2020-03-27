@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 from database.models import setup_db, Movies, Actors
-
+from auth.auth import requires_auth
 def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__)
@@ -21,7 +21,8 @@ def index():
   return 'hello world'
 
 @APP.route('/movies')
-def get_movies():
+@requires_auth('get:movies')
+def get_movies(payload):
   movies = Movies.query.order_by(Movies.id).all()
 
   movies_formatted = [movie.format() for movie in movies]
@@ -31,7 +32,8 @@ def get_movies():
   })
 
 @APP.route('/actors')
-def get_actors():
+@requires_auth('get:actors')
+def get_actors(payload):
   actors = Actors.query.order_by(Actors.id).all()
 
   actors_formatted = [actor.format() for actor in actors]
@@ -41,7 +43,8 @@ def get_actors():
   })
  
 @APP.route('/movies', methods=['POST'])
-def create_movie():
+@requires_auth('post:movies')
+def create_movie(payload):
 
   body = request.get_json()
 
@@ -59,7 +62,8 @@ def create_movie():
   })
 
 @APP.route('/actors', methods=['POST'])
-def create_actors():
+@requires_auth('post:actors')
+def create_actors(payload):
 
   body = request.get_json()
 
@@ -79,7 +83,8 @@ def create_actors():
   })
 
 @APP.route('/movies/<int:movie_id>', methods=['PATCH'])
-def update_movie_partially(movie_id):
+@requires_auth('patch:movies')
+def update_movie_partially(payload, movie_id):
   movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
 
   body = request.get_json()
@@ -100,7 +105,8 @@ def update_movie_partially(movie_id):
   })
 
 @APP.route('/movies/<int:movie_id>', methods=['DELETE'])
-def remove_movie(movie_id):
+@requires_auth('delete:movies')
+def remove_movie(payload, movie_id):
   movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
 
   movie.delete()
