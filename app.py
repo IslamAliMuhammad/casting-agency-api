@@ -4,7 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 from database.models import setup_db, Movies, Actors
-from auth.auth import requires_auth
+from auth.auth import requires_auth, AuthError
+
 def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__)
@@ -155,6 +156,13 @@ def not_found(error):
     'message': 'resource not found'
   }), 404
 
-
+@APP.errorhandler(AuthError)
+def auth_error(AuthError):
+  return jsonify({
+    'success': False,
+    'error': AuthError.status_code,
+    'message': AuthError.error
+  }), AuthError.status_code
+  
 if __name__ == '__main__':
     APP.run(host='127.0.0.1', port=8080, debug=True)
