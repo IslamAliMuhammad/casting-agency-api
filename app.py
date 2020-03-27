@@ -58,6 +58,26 @@ def create_movie():
     'success': True
   })
 
+@APP.route('/actors', methods=['POST'])
+def create_actors():
+
+  body = request.get_json()
+
+  if not body:
+    abort(400)
+
+  new_name = body.get('name', None)
+  new_age = body.get('age', None)
+  new_gender = body.get('gender', None)
+
+  
+  actor = Actors(name=new_name, age=new_age, gender=new_gender)
+  actor.insert()
+
+  return jsonify({
+    'success': True
+  })
+
 @APP.route('/movies/<int:movie_id>', methods=['PATCH'])
 def update_movie_partially(movie_id):
   movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
