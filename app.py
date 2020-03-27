@@ -143,6 +143,17 @@ def remove_movie(payload, movie_id):
     'success': True
   })
 
+@APP.route('/actors/<int:actor_id>', methods=['DELETE'])
+@requires_auth('delete:actors')
+def remove_actor(payload, actor_id):
+  actor = Actors.query.filter(Actors.id == actor_id).one_or_none()
+
+  actor.delete()
+
+  return jsonify({
+    'success': True
+  })
+
 @APP.errorhandler(400)
 def bad_request(error):
   return jsonify({
