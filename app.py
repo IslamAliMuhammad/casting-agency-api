@@ -25,7 +25,6 @@ def index():
 @requires_auth('get:movies')
 def get_movies(payload):
   movies = Movies.query.order_by(Movies.id).all()
-
   movies_formatted = [movie.format() for movie in movies]
   return jsonify({
     'success': True,
