@@ -2,9 +2,12 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask_migrate import Migrate, MigrateCommand
+
 
 from database.models import setup_db, Movies, Actors
 from auth.auth import requires_auth, AuthError
+
 
 def create_app(test_config=None):
   # create and configure the app
@@ -14,12 +17,13 @@ def create_app(test_config=None):
   return app
 
 APP = create_app()
-setup_db(APP)
+db = setup_db(APP)
+migrate = Migrate(APP, db)
 
 
 @APP.route('/')
 def index():
-  return 'Successful login '
+  return 'Successful'
 
 @APP.route('/movies')
 @requires_auth('get:movies')
