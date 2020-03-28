@@ -19,7 +19,7 @@ setup_db(APP)
 
 @APP.route('/')
 def index():
-  return 'hello world'
+  return 'Successful login '
 
 @APP.route('/movies')
 @requires_auth('get:movies')
@@ -202,4 +202,4 @@ def auth_error(AuthError):
   }), AuthError.status_code
   
 if __name__ == '__main__':
-    APP.run(host='127.0.0.1', port=5000, debug=True)
+    APP.run(host='127.0.0.1', port=8080, debug=True)
