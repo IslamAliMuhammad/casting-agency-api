@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 
 database_path = os.environ['DATABASE_URL']
-
 db = SQLAlchemy()
 
 '''
@@ -18,7 +17,10 @@ def setup_db(app, database_path=database_path):
     db.init_app(app)
     db.create_all()
 
-
+def create_drop_tables():
+  db.drop_all()
+  db.create_all()
+  
 class Movies(db.Model):  
   __tablename__ = 'movies'
 

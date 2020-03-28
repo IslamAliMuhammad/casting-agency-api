@@ -1,4 +1,5 @@
 env
 __pycache__
 database/setup.sh
+test/setup.sh
 auth/setup.sh
