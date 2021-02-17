@@ -1,9 +1,6 @@
 # Casting Agency
 **This project is currently hosted on [https://casting-agency-app.herokuapp.com/](https://casting-agency-app.herokuapp.com/)**
 
-## Motivation
-As part of the final project of the [https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd0044](Udacity Full Stack Web Developer Nanodegree), Build App that helps Casting Agency to manage their agency ,this application serves to showcase how to create and use API endpoints to collect and process information in a database, handle authentication and authorization, and host a test suite in Python with Flask.
-
 ## Introduction
 This project is here to help casting agencies more easily handle and assign movies and their actors. Easily add, remove, and edit your movie listings and actors with this API. 
 
